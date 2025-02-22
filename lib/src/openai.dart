@@ -163,7 +163,7 @@ class OpenAI implements IOpenAI {
     void Function(CancelData cancelData)? onCancel,
   }) {
     return _client.post(
-      "${_client.apiUrl}$kChatGptTurbo",
+      _client.apiUrl,
       request.toJson(),
       onCancel: (it) => onCancel != null ? onCancel(it) : null,
       onSuccess: (it) {
@@ -197,7 +197,7 @@ class OpenAI implements IOpenAI {
     void Function(CancelData cancelData)? onCancel,
   }) {
     return _client.sse(
-      "${_client.apiUrl}$kChatGptTurbo",
+      _client.apiUrl,
       request.toJson()..addAll({"stream": true}),
       onCancel: (it) => onCancel != null ? onCancel(it) : null,
       complete: (it) {
