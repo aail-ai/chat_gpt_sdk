@@ -194,7 +194,6 @@ class OpenAIClient extends OpenAIWrapper {
     Map<String, dynamic> request, {
     required T Function(Map<String, dynamic>) onSuccess,
     required void Function(CancelData cancelData) onCancel,
-    Function(DioException err)? onError,
     Map<String, String>? headers,
   }) async {
     try {
@@ -227,15 +226,11 @@ class OpenAIClient extends OpenAIWrapper {
       log.log(
         "error code: ${err.response?.statusCode}, message :${err.message} data:${err.response?.data}",
       );
-      if (onError != null) {
-        return onError(err);
-      } else {
-        throw handleError(
-          code: err.response?.statusCode ?? HttpStatus.internalServerError,
-          message: "${err.message}",
-          data: err.response?.data,
-        );
-      }
+      throw handleError(
+        code: err.response?.statusCode ?? HttpStatus.internalServerError,
+        message: "${err.message}",
+        data: err.response?.data,
+      );
     }
   }
 
