@@ -145,6 +145,7 @@ class OpenAI implements IOpenAI {
   Future<CompleteResponse?> onCompletion({
     required CompleteText request,
     void Function(CancelData cancelData)? onCancel,
+    void Function(DioException err)? onError,
   }) =>
       _client.post(
         "${_client.apiUrl}$kCompletion",
@@ -153,6 +154,9 @@ class OpenAI implements IOpenAI {
         onSuccess: (it) {
           return CompleteResponse.fromJson(it);
         },
+        onError: (err){
+          return err;
+        }
       );
 
   ///Given a chat conversation,
