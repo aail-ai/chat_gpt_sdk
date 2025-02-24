@@ -147,17 +147,14 @@ class OpenAI implements IOpenAI {
     void Function(CancelData cancelData)? onCancel,
     void Function(DioException err)? onError,
   }) =>
-      _client.post(
-        "${_client.apiUrl}$kCompletion",
-        request.toJson(),
-        onCancel: (it) => onCancel != null ? onCancel(it) : null,
-        onSuccess: (it) {
-          return CompleteResponse.fromJson(it);
-        },
-        onError: (err){
-          return err;
-        }
-      );
+      _client.post("${_client.apiUrl}$kCompletion", request.toJson(),
+          onCancel: (it) => onCancel != null ? onCancel(it) : null,
+          onSuccess: (it) {
+            return CompleteResponse.fromJson(it);
+          },
+          onError: (err) {
+            return err;
+          });
 
   ///Given a chat conversation,
   /// the model will return a chat completion response.[onChatCompletion]
@@ -165,15 +162,16 @@ class OpenAI implements IOpenAI {
   Future<ChatCTResponse?> onChatCompletion({
     required ChatCompleteText request,
     void Function(CancelData cancelData)? onCancel,
+    void Function(DioException err)? onError,
   }) {
-    return _client.post(
-      _client.apiUrl,
-      request.toJson(),
-      onCancel: (it) => onCancel != null ? onCancel(it) : null,
-      onSuccess: (it) {
-        return ChatCTResponse.fromJson(it);
-      },
-    );
+    return _client.post(_client.apiUrl, request.toJson(),
+        onCancel: (it) => onCancel != null ? onCancel(it) : null,
+        onSuccess: (it) {
+          return ChatCTResponse.fromJson(it);
+        },
+        onError: (err) {
+          return err;
+        });
   }
 
   ///generate image with prompt
