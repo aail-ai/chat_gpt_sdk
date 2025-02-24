@@ -223,14 +223,16 @@ class OpenAIClient extends OpenAIWrapper {
         );
       }
     } on DioException catch (err) {
-      log.log(
-        "error code: ${err.response?.statusCode}, message :${err.message} data:${err.response?.data}",
-      );
-      throw handleError(
-        code: err.response?.statusCode ?? HttpStatus.internalServerError,
-        message: "${err.message}",
-        data: err.response?.data,
-      );
+      throw err;
+      // log.log(
+      //   "error code: ${err.response?.statusCode}, message :${err.message} data:${err.response?.data}",
+      // );
+      //
+      // throw handleError(
+      //   code: err.response?.statusCode ?? HttpStatus.internalServerError,
+      //   message: "${err.message}",
+      //   data: err.response?.data,
+      // );
     }
   }
 
