@@ -45,6 +45,11 @@ class OpenAI implements IOpenAI {
     TokenBuilder.build.setToken(token);
   }
 
+  /// set new token
+  void setRefreshToken(Future<String>? refreshToken) {
+    TokenBuilder.build.setRefreshToken(refreshToken);
+  }
+
   String get token => "${TokenBuilder.build.token}";
 
   /// set organization id
@@ -60,6 +65,7 @@ class OpenAI implements IOpenAI {
   @override
   OpenAI build({
     String? token,
+    Future<String>? refreshToken,
     String? orgId,
     String? apiUrl,
     HttpSetup? baseOption,
@@ -68,6 +74,7 @@ class OpenAI implements IOpenAI {
     if ("$token".isEmpty || token == null) throw MissingTokenException();
     final setup = baseOption ?? HttpSetup();
     setToken(token);
+    setRefreshToken(refreshToken);
 
     if (orgId != null) {
       setOrgId(orgId);
@@ -101,7 +108,7 @@ class OpenAI implements IOpenAI {
         return client;
       });
     }
-    dio.interceptors.add(InterceptorWrapper());
+    dio.interceptors.add(InterceptorWrapper(dio));
 
     final _apiUrl = (apiUrl?.isNotEmpty ?? false) ? apiUrl! : kURL;
     _client = OpenAIClient(dio: dio, apiUrl: _apiUrl, isLogging: enableLog);

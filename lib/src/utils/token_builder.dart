@@ -8,6 +8,9 @@ class TokenBuilder {
   ///token
   String _token = '';
 
+  ///refresh token future
+  Future<String?>? _refreshToken;
+
   ///org
   String? _orgId;
 
@@ -16,11 +19,18 @@ class TokenBuilder {
     _token = token;
   }
 
+  void setRefreshToken(Future<String?>? refreshToken) {
+    _refreshToken = refreshToken;
+  }
+
   ///set orgId
   void setOrgId(String? orgId) => _orgId = orgId;
 
   ///get token
   String? get token => _token;
+
+  ///get token refresh
+  Future<String?>? get refreshToken => _refreshToken;
 
   ///get orgID
   String? get orgId => _orgId;
