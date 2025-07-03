@@ -57,10 +57,10 @@ class InterceptorWrapper extends Interceptor {
       /// Check if the last API call was `auth/verify/`. If, then replace the old token
       /// with the new (refreshed) one.
       final requestOptions = error.requestOptions;
-      requestOptions.headers[HttpHeaders.authorizationHeader] =
+      requestOptions.headers['Authorization'] =
           'Bearer $refreshToken';
 
-      log('handle expired token succeed');
+      log('handle expired token succeed with token ${refreshToken}');
 
       return handler.resolve(await _retry(requestOptions));
     }
