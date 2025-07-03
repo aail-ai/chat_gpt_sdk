@@ -11,17 +11,17 @@ class InterceptorWrapper extends Interceptor {
 
   InterceptorWrapper(this._dio);
 
-  @override
-  void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    options.headers.addAll(
-      kHeader(
-        TokenBuilder.build.token,
-        TokenBuilder.build.orgId,
-      ),
-    );
-
-    return handler.next(options); // super.onRequest(options, handler);
-  }
+  // @override
+  // void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
+  //   options.headers.addAll(
+  //     kHeader(
+  //       TokenBuilder.build.token,
+  //       TokenBuilder.build.orgId,
+  //     ),
+  //   );
+  //
+  //   return handler.next(options); // super.onRequest(options, handler);
+  // }
 
   @override
   void onResponse(Response response, ResponseInterceptorHandler handler) {

@@ -84,6 +84,10 @@ class OpenAI implements IOpenAI {
       sendTimeout: setup.sendTimeout,
       connectTimeout: setup.connectTimeout,
       receiveTimeout: setup.receiveTimeout,
+        headers: kHeader(
+          TokenBuilder.build.token,
+          TokenBuilder.build.orgId,
+        )
     ));
 
     const bool kIsWeb = bool.fromEnvironment('dart.library.js_util');
