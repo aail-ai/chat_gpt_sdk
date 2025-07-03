@@ -46,7 +46,7 @@ class OpenAI implements IOpenAI {
   }
 
   /// set new token
-  void setRefreshToken(Future<String>? refreshToken) {
+  void setRefreshToken(Future<String?>? refreshToken) {
     TokenBuilder.build.setRefreshToken(refreshToken);
   }
 
@@ -65,7 +65,7 @@ class OpenAI implements IOpenAI {
   @override
   OpenAI build({
     String? token,
-    Future<String>? refreshToken,
+    Future<String?>? refreshToken,
     String? orgId,
     String? apiUrl,
     HttpSetup? baseOption,
