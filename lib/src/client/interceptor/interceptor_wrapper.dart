@@ -56,6 +56,7 @@ class InterceptorWrapper extends Interceptor {
     if (refreshToken != null && refreshToken.isNotEmpty) {
       /// Check if the last API call was `auth/verify/`. If, then replace the old token
       /// with the new (refreshed) one.
+      TokenBuilder.build.setToken(refreshToken);
       final requestOptions = error.requestOptions;
       requestOptions.headers['Authorization'] =
           'Bearer $refreshToken';
