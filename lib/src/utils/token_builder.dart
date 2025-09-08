@@ -9,7 +9,7 @@ class TokenBuilder {
   String _token = '';
 
   ///refresh token future
-  Future<String?>? _refreshToken;
+  Future<String?>?  Function()? _refreshToken;
 
   ///org
   String? _orgId;
@@ -19,7 +19,7 @@ class TokenBuilder {
     _token = token;
   }
 
-  void setRefreshToken(Future<String?>? refreshToken) {
+  void setRefreshToken(Future<String?>?  Function()? refreshToken) {
     _refreshToken = refreshToken;
   }
 
@@ -30,7 +30,7 @@ class TokenBuilder {
   String? get token => _token;
 
   ///get token refresh
-  Future<String?>? get refreshToken => _refreshToken;
+  Future<String?>?  Function()? get refreshToken => _refreshToken;
 
   ///get orgID
   String? get orgId => _orgId;

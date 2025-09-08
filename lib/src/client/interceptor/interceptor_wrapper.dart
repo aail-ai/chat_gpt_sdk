@@ -51,15 +51,16 @@ class InterceptorWrapper extends Interceptor {
       DioException error, ErrorInterceptorHandler handler) async {
     log('try to handle expired token');
 
-    final String? refreshToken = await TokenBuilder.build.refreshToken;
+    final String? refreshToken = TokenBuilder.build.refreshToken != null
+        ? await TokenBuilder.build.refreshToken!()
+        : '';
 
     if (refreshToken != null && refreshToken.isNotEmpty) {
       /// Check if the last API call was `auth/verify/`. If, then replace the old token
       /// with the new (refreshed) one.
       TokenBuilder.build.setToken(refreshToken);
       final requestOptions = error.requestOptions;
-      requestOptions.headers['Authorization'] =
-          'Bearer $refreshToken';
+      requestOptions.headers['Authorization'] = 'Bearer $refreshToken';
 
       log('handle expired token succeed with token ${refreshToken}');
 
